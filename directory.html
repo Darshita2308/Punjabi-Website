@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Family Directory - Punjabi Khatri Sabha Community Members">
+    <title>Directory - Punjabi Khatri Sabha</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🙏</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="nav-brand">
+                <div class="nav-logo">PKS</div>
+                <h1>Punjabi Khatri Sabha</h1>
+            </a>
+
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="directory.html" class="active"><i class="fas fa-users"></i> Directory</a></li>
+                <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                <li><a href="#" onclick="logout()" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Directory Header -->
+    <section class="directory-header">
+        <h1><i class="fas fa-address-book" style="margin-right: 15px; opacity: 0.8;"></i>Family Directory</h1>
+        <p>Browse our community members organized by family domain</p>
+
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by name or location...">
+        </div>
+    </section>
+
+    <!-- Directory Content -->
+    <section class="directory-content">
+        <div class="directory-title">
+            <button class="back-btn" id="backButton" onclick="goBack()" style="display: none;">
+                <i class="fas fa-arrow-left"></i> Back to Domains
+            </button>
+            <h2 id="domainTitle">Family Domains</h2>
+        </div>
+
+        <!-- Domain Cards -->
+        <div class="domains-container" id="domainsContainer">
+            <!-- Domains will be rendered by JavaScript -->
+        </div>
+
+        <!-- Members List (hidden initially) -->
+        <div class="members-container" id="membersContainer">
+            <!-- Members will be rendered by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Punjabi Khatri Sabha. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="events.html">Events</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", initDirectoryPage);
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Punjabi Khatri Sabha - A vibrant community united by culture, tradition, and values">
+    <title>Home - Punjabi Khatri Sabha</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🙏</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="nav-brand">
+                <div class="nav-logo">PKS</div>
+                <h1>Punjabi Khatri Sabha</h1>
+            </a>
+
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="home.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="directory.html"><i class="fas fa-users"></i> Directory</a></li>
+                <li><a href="events.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                <li><a href="#" onclick="logout()" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="societyName"><span>Punjabi</span> Khatri Sabha</h1>
+            <p id="societyDescription">A vibrant community of Punjabi Khatri families united by culture, tradition, and values. Together we preserve our heritage and build lasting bonds across generations.</p>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalFamilies">0</span>
+                    <span class="stat-label">Families</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="totalMembers">0</span>
+                    <span class="stat-label">Members</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="totalDomains">0</span>
+                    <span class="stat-label">Domains</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="section-title">
+            <h2>About Our Society</h2>
+            <p>Learn more about our rich heritage and community values</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-card">
+                <div class="icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <h3>Established in 1985</h3>
+                <p>Our society was founded by visionary community leaders who wanted to preserve our cultural heritage and create a platform for Punjabi Khatri families to come together, support each other, and celebrate our traditions.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3>Founded By</h3>
+                <p>Shri Ram Lal Kapoor Ji, along with other respected elders of the community, laid the foundation of this society with a vision to unite all Punjabi Khatri families under one umbrella and promote cultural harmony.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Our Mission</h3>
+                <p>To unite Punjabi Khatri families, preserve our cultural heritage, and support community members through various social and cultural initiatives. We aim to create lasting bonds across generations.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>What We Do</h3>
+                <p>We organize cultural events, festivals, sports activities, and social gatherings throughout the year. We also provide a platform for networking and support among community members.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Our Community</h3>
+                <p>Our society comprises five major family domains - Kapoor, Khatri, Tandon, Bhalla, and Bajaj. Each family contributes to the rich tapestry of our community with their unique traditions.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Contact Us</h3>
+                <p>Community Hall, Sector 15, New Delhi - 110001<br>
+                Phone: +91 98765 43210<br>
+                Email: info@punjabikhatrisabha.org</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-access-section">
+        <div class="section-title" style="color: white;">
+            <h2 style="color: white;">Quick Access</h2>
+            <p style="color: rgba(255,255,255,0.85);">Navigate to different sections of our community portal</p>
+        </div>
+
+        <div class="about-grid" style="max-width: 900px; margin: 0 auto;">
+            <a href="directory.html" class="about-card" style="cursor: pointer;">
+                <div class="icon">
+                    <i class="fas fa-address-book"></i>
+                </div>
+                <h3>Family Directory</h3>
+                <p>Browse through our community members organized by family domains. Find contact information, family details, and connect with fellow members.</p>
+            </a>
+
+            <a href="events.html" class="about-card" style="cursor: pointer;">
+                <div class="icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Upcoming Events</h3>
+                <p>Stay updated with all the upcoming events, festivals, and gatherings organized by the society. Never miss a community celebration!</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Punjabi Khatri Sabha. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="events.html">Events</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", initHomePage);
+    </script>
+</body>
+</html>
