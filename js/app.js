@@ -3,6 +3,21 @@
 // ============================================
 
 // Mobile menu toggle
+function setLang(lang) {
+    const select = document.querySelector("select.goog-te-combo");
+    if (!select) return;
+
+    select.value = lang;
+    select.dispatchEvent(new Event("change"));
+
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    event.target.classList.add("active");
+}
+
+
 function initMobileMenu() {
     const menuToggle = document.getElementById("menuToggle");
     const navLinks = document.getElementById("navLinks");
@@ -37,6 +52,8 @@ function initHomePage() {
     if (societyName) societyName.textContent = SOCIETY_INFO.name;
     if (societyDescription) societyDescription.textContent = SOCIETY_INFO.description;
 }
+const savedLang = localStorage.getItem("language") || "en";
+setLanguage(savedLang);
 
 // Initialize directory page
 function initDirectoryPage() {
@@ -82,6 +99,18 @@ function renderDomains() {
     });
 }
 
+// Helper: return display name/role for directory card (promote Mukhiya if parent is Late)
+function getRepresentative(member) {
+    const f = member.family || {};
+    if (member.name && member.name.toLowerCase().startsWith('late') && Array.isArray(f.children)) {
+        const rep = f.children.find(c => c.role && c.role.toLowerCase() === 'mukhiya');
+        if (rep) {
+            return { name: rep.name, role: 'Mukhiya' };
+        }
+    }
+    return { name: member.name, role: member.role };
+}
+
 // Show members of a specific domain
 function showDomainMembers(domainId) {
     const domainsContainer = document.getElementById("domainsContainer");
@@ -106,13 +135,17 @@ function showDomainMembers(domainId) {
         card.className = "member-card";
         card.onclick = () => window.location.href = `member.html?id=${member.id}`;
 
+        const rep = getRepresentative(member);
+        const displayName = rep.name;
+        const displayRole = rep.role || member.role;
+
         card.innerHTML = `
             <div class="member-avatar" style="background: ${domain.color}">
-                ${member.name.charAt(0)}
+                ${displayName.charAt(0)}
             </div>
             <div class="member-info">
-                <h4>${member.name}</h4>
-                <p class="member-role">${member.role}</p>
+                <h4>${displayName}</h4>
+                <p class="member-role">${displayRole}</p>
                 <p class="member-location"><i class="fas fa-map-marker-alt"></i> ${member.location}</p>
                 <p class="member-phone"><i class="fas fa-phone"></i> ${member.phone}</p>
                 <p class="member-count"><i class="fas fa-users"></i> ${member.family.totalMembers} Members</p>
@@ -207,8 +240,11 @@ function initMemberPage() {
     }
 
     renderMemberDetails(memberData);
-    renderFamilyTree(memberData);
+
+    
 }
+
+
 
 // Render member details
 function renderMemberDetails(member) {
@@ -267,8 +303,57 @@ function renderMemberDetails(member) {
                 </div>
             `;
             familyList.appendChild(childItem);
+
+            // Child's spouse (e.g., daughter-in-law)
+            if (child.spouse && child.spouse.name) {
+                const spouse = child.spouse;
+                const spouseItem = document.createElement("div");
+                spouseItem.className = "family-member-item spouse-item";
+                // determine gender class (fallback from relation text)
+                const spouseGenderClass = spouse.gender ? spouse.gender : (spouse.relation && spouse.relation.toLowerCase().includes('wife') ? 'female' : (spouse.relation && spouse.relation.toLowerCase().includes('husband') ? 'male' : ''));
+                const spouseIcon = spouseGenderClass === "male" ? "fa-male" : (spouseGenderClass === "female" ? "fa-female" : "fa-user");
+                const spouseRole = spouse.relation ? spouse.relation.replace(/-/g, ' ') : (child.gender === 'male' ? 'Daughter-in-law' : 'Son-in-law');
+                const spouseAgeText = spouse.age ? ` | Age: ${spouse.age}` : ' | Age: —';
+
+                spouseItem.innerHTML = `
+                    <div class="family-member-icon spouse ${spouseGenderClass}"><i class="fas ${spouseIcon}"></i></div>
+                    <div class="family-member-details">
+                        <h4>${spouse.name}</h4>
+                        <p>${spouseRole}${spouseAgeText}</p>
+                    </div>
+                `;
+                familyList.appendChild(spouseItem);
+            }
+
+            // Grandchildren (children of this child)
+            if (child.children && child.children.length > 0) {
+                child.children.forEach(gc => {
+                    const gcItem = document.createElement("div");
+                    gcItem.className = "family-member-item grandchild-item";
+                    const gcIconClass = gc.gender ? (gc.gender === "male" ? "fa-male" : "fa-female") : "fa-user";
+                    const gcGenderClass = gc.gender ? gc.gender : '';
+                    const gcAgeText = gc.age ? ` | Age: ${gc.age}` : ' | Age: —';
+                    gcItem.innerHTML = `
+                        <div class="family-member-icon grandchild ${gcGenderClass}"><i class="fas ${gcIconClass}"></i></div>
+                        <div class="family-member-details">
+                            <h4>${gc.name}</h4>
+                            <p>Grandchild${gcAgeText}</p>
+                        </div>
+                    `;
+                    familyList.appendChild(gcItem);
+                });
+            }
+
         });
     }
+        // 👉 Render Family Tree / Pedigree
+    const familyTree = document.getElementById("familyTree");
+    if (familyTree) {
+        familyTree.innerHTML = renderPedigree(member);
+        // adjust connector line to align exactly between first and last child
+        setTimeout(() => adjustPedigreeConnectors(familyTree), 0);
+    }
+
 }
 
 // Render family tree
@@ -394,3 +479,246 @@ function openLocation(location) {
     const encodedLocation = encodeURIComponent(location);
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodedLocation}`, "_blank");
 }
+
+// Adjust horizontal children line to span exactly between first and last visible child branch
+function adjustPedigreeConnectors(root) {
+    try {
+        const tree = (root instanceof HTMLElement) ? root : document.getElementById('familyTree');
+        if (!tree) return;
+        const section = tree.querySelector('.children-section');
+        const line = tree.querySelector('.children-line');
+        const row = tree.querySelector('.children-row');
+        if (!section || !line || !row) return;
+
+        const branches = Array.from(row.querySelectorAll('.child-branch'));
+        if (branches.length === 0) {
+            line.style.display = 'none';
+            return;
+        }
+
+        // compute centers of first and last branch relative to .children-section
+        const sectionRect = section.getBoundingClientRect();
+        const first = branches[0].getBoundingClientRect();
+        const last = branches[branches.length - 1].getBoundingClientRect();
+
+        const firstCenter = (first.left + first.right) / 2 - sectionRect.left;
+        const lastCenter = (last.left + last.right) / 2 - sectionRect.left;
+
+        const left = Math.min(firstCenter, lastCenter);
+        const width = Math.abs(lastCenter - firstCenter);
+
+        // add small padding so line doesn't touch box edges
+        const pad = 12;
+        line.style.display = '';
+        line.style.left = (left - pad) + 'px';
+        line.style.width = (width + pad * 2) + 'px';
+        line.style.transform = 'none';
+
+    } catch (err) {
+        console.error('adjustPedigreeConnectors error', err);
+    }
+}
+
+// keep connectors aligned on resize
+window.addEventListener('resize', () => {
+    const tree = document.getElementById('familyTree');
+    if (tree) adjustPedigreeConnectors(tree);
+});
+// ...existing code...
+// ...existing code...
+// ...existing code...
+function renderPedigree(member) {
+    if (!member || !member.family) {
+        return `<div class="pedigree-error">Family data unavailable.</div>`;
+    }
+    const f = member.family || {};
+
+    function personBox(person, role) {
+        if (!person) return "";
+        const genderClass = person.gender === "female" ? "female" : "male";
+        const lateText = person.status === "late" ? " (Late)" : "";
+        return `<div class="person-box ${genderClass}">
+            ${person.name}${lateText}${role ? `<br><small>${role}</small>` : ""}
+        </div>`;
+    }
+
+    function spouseRole(child, spouse) {
+        if (!spouse) return "";
+        if (child.gender === "male") return "Daughter-in-law";
+        return spouse.gender === "male" ? "Husband" : "Spouse";
+    }
+
+    // Normalize children: attach any child-record that is actually a spouse (e.g. daughter-in-law)
+    const rawChildren = Array.isArray(f.children) ? f.children.slice() : [];
+    const childrenByName = {};
+    rawChildren.forEach((c, i) => { if (c && c.name) childrenByName[c.name.trim().toLowerCase()] = i; });
+
+    // clone so we can mark attachments
+    const children = rawChildren.map(c => Object.assign({}, c));
+
+    // Attach spouse-records to their husband when possible (marriedTo points to husband name)
+    children.forEach(c => {
+        if (!c || !c.marriedTo) return;
+        const husbandIndex = childrenByName[(c.marriedTo || "").trim().toLowerCase()];
+        if (husbandIndex !== undefined) {
+            const husband = children[husbandIndex];
+            if (husband && husband.gender === "male") {
+                husband.spouse = husband.spouse || c;
+                c._attached = true;
+            }
+        }
+    });
+
+    // Also if some child has role/status indicating it's a 'daughter-in-law' and marriedTo absent,
+    // try to match by searching male child whose spouse name matches this name (rare case)
+    children.forEach(c => {
+        if (!c || c._attached) return;
+        if ((c.relation === "daughter-in-law" || c.role === "daughter-in-law" || c.status === "daughter_in_law") && c.name) {
+            // try to find a male child who doesn't have spouse and likely husband by last name or missing spouse
+            for (let h of children) {
+                if (h && h.gender === "male" && !h.spouse && h.name && h.name.split(" ")[1] === c.name.split(" ")[1]) {
+                    h.spouse = c;
+                    c._attached = true;
+                    break;
+                }
+            }
+        }
+    });
+
+    // Final children preserve original order, only non-attached (main children) remain
+    const finalChildren = children.filter(c => !c._attached);
+
+    // Parents (mother first)
+    const parentsHtml = (f.parents?.mother || f.parents?.father) ? `
+        <div class="tree-level parents-level">
+            ${personBox(f.parents?.mother, "Mother")}
+            ${personBox(f.parents?.father, "Father")}
+        </div>
+        <div class="connector parents-to-couple"><div class="connector-vertical"></div></div>
+    ` : "";
+
+    // If the current member is 'Late' and one of the children is marked as Mukhiya,
+    // promote that child to be shown as the main Mukhiya (root) and display the late member's
+    // name as a separate label above/outside the couple.
+    let lateCoupleHtml = "";
+    let mainMukhiya = member;
+    let mainWife = f.wife;
+    let extraCoupleHtml = "";
+
+    if (member.name && member.name.toLowerCase().startsWith('late') && finalChildren.length) {
+        const repIndex = finalChildren.findIndex(c => c.role && c.role.toLowerCase() === 'mukhiya');
+        if (repIndex !== -1) {
+            const rep = finalChildren.splice(repIndex, 1)[0]; // remove from children list
+            mainMukhiya = rep;
+            mainWife = rep.spouse || null; // use promoted spouse for main couple
+
+            const nameWithoutLate = member.name.replace(/^late\s+/i, '');
+            // show the late member as a couple (with their wife) above the promoted mukhiya
+            lateCoupleHtml = `
+                <div class="tree-level late-couple">
+                    ${personBox(member, "Late")}
+                    ${f.wife ? personBox(f.wife, "Wife") : ""}
+                </div>
+            `;
+        }
+    }
+
+    // Couple row (Mukhiya + wife). We may append extra family members (e.g., a daughter) to the couple row
+    let coupleHtml = `
+        ${lateCoupleHtml}
+        <div class="couple-wrap">
+            <div class="tree-level couple-level">
+                ${personBox(mainMukhiya, "Mukhiya")}
+                ${mainWife ? personBox(mainWife, "Wife") : ""}
+                ${extraCoupleHtml}
+            </div>
+            <div class="connector couple-to-children"><div class="connector-vertical short"></div></div>
+        </div>
+    `;
+
+    // Children (each child is a branch; spouse and grandchildren are under that branch)
+    let childrenRow = "";
+
+    // If we promoted a child to mainMukhiya, include its children first so they appear under the main couple
+    let childrenToRender = finalChildren;
+    if (mainMukhiya !== member) {
+        const promotedChildren = (mainMukhiya.children && mainMukhiya.children.length) ? mainMukhiya.children.map(c => Object.assign({}, c)) : [];
+        childrenToRender = promotedChildren.concat(finalChildren);
+    }
+
+    // Promote specific children to the couple-row (e.g., Thosi/Toshi) so they appear next to the Mukhiya and spouse
+    const promoteNames = [ 'toshi bhalla'];
+    let coupleExtras = [];
+    childrenToRender = childrenToRender.filter(child => {
+        if (!child || !child.name) return true;
+        const n = child.name.trim().toLowerCase();
+        // Flexible match: exact names or contains 'tos' (covers Toshi/Thosi/Tosh variants)
+        if (promoteNames.includes(n) || n.includes('tos')) {
+            coupleExtras.push(child);
+            return false; // remove from children list
+        }
+        return true;
+    });
+    if (coupleExtras.length) {
+        extraCoupleHtml = coupleExtras.map(c => personBox(c, c.gender === 'male' ? 'Son' : 'Daughter')).join('');
+    }
+
+    // Rebuild coupleHtml now that extraCoupleHtml may be populated (fixes missing promoted members like Thoshi)
+    coupleHtml = `
+        ${lateCoupleHtml}
+        <div class="couple-wrap">
+            <div class="tree-level couple-level">
+                ${personBox(mainMukhiya, "Mukhiya")}
+                ${mainWife ? personBox(mainWife, "Wife") : ""}
+                ${extraCoupleHtml}
+            </div>
+            <div class="connector couple-to-children"><div class="connector-vertical short"></div></div>
+        </div>
+    `;
+    if (childrenToRender.length) {
+        const branches = childrenToRender.map(child => {
+            const spouseHtml = child.spouse ? personBox(child.spouse, spouseRole(child, child.spouse)) : "";
+            const grandchildrenHtml = Array.isArray(child.children) && child.children.length
+                ? `<div class="grandchildren-row" data-parent="${child.name}">${child.children.map(gc => personBox(gc, "Grandchild")).join("")}</div>`
+                : "";
+            return `
+                <div class="child-branch">
+                    <div class="child-connector"><div class="connector-vertical tiny"></div></div>
+                    <div class="child-node">
+                        ${personBox(child, child.gender === "male" ? "Son" : "Daughter")}
+                        ${spouseHtml}
+                    </div>
+                    ${grandchildrenHtml}
+                </div>
+            `;
+        }).join("");
+        childrenRow = `
+            <div class="children-section">
+                <div class="children-line"></div>
+                <div class="children-row">
+                    ${branches}
+                </div>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="pedigree-root">
+            ${parentsHtml}
+            ${coupleHtml}
+            ${childrenRow}
+        </div>
+    `;
+}
+// ...existing code...
+function personBox(person, role) {
+    if (!person) return "";
+    const genderClass = person.gender === "female" ? "female" : "male";
+    const lateText = person.status === "late" ? " (Late)" : "";
+    const marriedOutClass = (person.status === "married_out" || person.marriedOut || person.married === true || person.marriedTo) ? "married-out" : "";
+    return `<div class="person-box ${genderClass} ${marriedOutClass}">
+        ${person.name}${lateText}${role ? `<br><small>${role}</small>` : ""}
+    </div>`;
+}
+// ...existing code...
+// ...existing code...
