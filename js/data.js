@@ -1,724 +1,874 @@
 // ============================================
-// MAIN APPLICATION JAVASCRIPT
+// SOCIETY DATA - EASY TO UPDATE
 // ============================================
 
-// Mobile menu toggle
-function setLang(lang) {
-    const select = document.querySelector("select.goog-te-combo");
-    if (!select) return;
+const SOCIETY_INFO = {
+    name: "Punjabi Khatri Sabha",
+    established: "1985",
+    founder: "Shri Ram Lal Kapoor Ji",
+    description: "A vibrant community of Punjabi Khatri families united by culture, tradition, and values. Our society has been serving the community for decades, organizing cultural events, supporting families, and preserving our rich heritage.",
+    mission: "To unite Punjabi Khatri families, preserve our cultural heritage, and support community members through various social and cultural initiatives.",
+    address: "Community Hall, Sector 15, New Delhi - 110001",
+    phone: "+91 98765 43210",
+    email: "info@punjabikhatrisabha.org"
+};
 
-    select.value = lang;
-    select.dispatchEvent(new Event("change"));
+// ============================================
+// FAMILY DOMAINS - 5 CATEGORIES
+// ============================================
 
-    document.querySelectorAll(".lang-btn").forEach(btn => {
-        btn.classList.remove("active");
-    });
+const FAMILY_DOMAINS = [
+    { id: "kapoor", name: "Kapoor", icon: "K", color: "#e74c3c" },
+    { id: "khatri", name: "Khatri", icon: "Kh", color: "#3498db" },
+    { id: "tandon", name: "Tandon", icon: "T", color: "#2ecc71" },
+    { id: "bhalla", name: "Bhalla", icon: "B", color: "#9b59b6" },
+    { id: "bajaj", name: "Bajaj", icon: "Bj", color: "#f39c12" },
+    { id: "mehra", name: "Mehra", icon: "M", color: "#392b69" },
 
-    event.target.classList.add("active");
-}
+];
 
+// ============================================
+// FAMILY MEMBERS DATA
+// Format: Each Mukhiya with their family details
+// ============================================
 
-function initMobileMenu() {
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener("click", function() {
-            navLinks.classList.toggle("active");
-            this.classList.toggle("active");
-        });
+const FAMILY_MEMBERS = {
+    kapoor: [
+        {
+            id: "kapoor_001",
+            
+            name: "Rajesh Kapoor",
+            phone: "+91 98111 22333",
+            location: "A-45, Sector 15, New Delhi",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 5,
+                wife: { name: "Sunita Kapoor", age: 48 },
+                children: [
+                    { name: "Amit Kapoor", gender: "male", age: 25, married: false, status: "present" },
+                    { name: "Priya Kapoor", gender: "female", age: 23, married: true, marriedTo: "Sharma Family", status: "married_out" },
+                    { name: "Neha Kapoor", gender: "female", age: 20, married: false, status: "late" }
+                ]
+            }
+        },
+        {
+            id: "kapoor_002",
+            name: "Vinod Kapoor",
+            phone: "+91 98222 33444",
+            location: "B-12, Sector 18, New Delhi",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 4,
+                wife: { name: "Meena Kapoor", age: 45 },
+                children: [
+                    { name: "Rohit Kapoor", gender: "male", age: 22, married: false, status: "present" },
+                    { name: "Anita Kapoor", gender: "female", age: 19, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "kapoor_003",
+            name: "Suresh Kapoor",
+            phone: "+91 98333 44555",
+            location: "C-78, Sector 22, Noida",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 6,
+                wife: { name: "Kavita Kapoor", age: 50 },
+                children: [
+                    { name: "Vikram Kapoor", gender: "male", age: 28, married: true, status: "present" },
+                    { name: "Suman Kapoor", gender: "female", age: 26, married: true, marriedTo: "Mehta Family", status: "married_out" },
+                    { name: "Pooja Kapoor", gender: "female", age: 24, married: true, marriedTo: "Gupta Family", status: "married_out" },
+                    { name: "Rahul Kapoor", gender: "male", age: 21, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "kapoor_004",
+            name: "Anil Kapoor",
+            phone: "+91 98444 55666",
+            location: "D-34, Sector 10, Gurgaon",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Rekha Kapoor", age: 42 },
+                children: [
+                    { name: "Simran Kapoor", gender: "female", age: 18, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "kapoor_005",
+            name: "Mahesh Kapoor",
+            phone: "+91 98555 66777",
+            location: "E-56, Sector 25, Faridabad",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 5,
+                wife: { name: "Seema Kapoor", age: 47 },
+                children: [
+                    { name: "Kunal Kapoor", gender: "male", age: 24, married: false, status: "present" },
+                    { name: "Kritika Kapoor", gender: "female", age: 22, married: false, status: "present" },
+                    { name: "Karan Kapoor", gender: "male", age: 19, married: false, status: "present" }
+                ]
+            }
+        }
+    ],
+    khatri: [
+        {
+            id: "khatri_001",
+            name: "Jitendra Khatri",
+            phone: "+91 9694466909 / +91 7014321857",
+            location: "8, jai shree colony, dholkot, bohra ganeshji udaipur",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 4,
+                wife: { name: "Monika Khatri", age: 46 },
+                children: [
+                    { name: "Devash Khatri", gender: "male", age: 23, married: false, status: "present" },
+                    { name: "Deepika Khatri", gender: "female", age: 21, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_002",
+            name: "Suresh prakash chandra Khatri",
+            phone: "+91 7737403801",
+            location: "D7, shalibhadra complex saflta nagar, bedla, udaipur",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 5,
+                wife: { name: "Anita Khatri", age: 44 },
+                children: [
+                    { name: "Vishal Khatri", gender: "male", age: 22, married: false, status: "present" },
+                    { name: "Monika Khatri", gender: "female", age: 20, married: false, status: "present" },
+                    { name: "Mohit Khatri", gender: "male", age: 17, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_003",
+            name: "narendra prakash chandra khatri",
+            phone: "+91 9828059115",
+            location: "115, Bhopalwadi, Udaipur ",
+            photo: null,
+            family: {
+                totalMembers: 4,
+                wife: { name: "Neelam Khatri", age: 43 },
+                children: [
+                    { name: "Sachin Khatri", gender: "male", age: 21, married: false, status: "present" },
+                    { name: "Sapna Khatri", gender: "female", age: 19, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_004",
+            name: "Yogesh Chaganlal Khatri",
+            phone: "+91 9829041227",
+            location: "1, chabila bheru marg., bharbhuja ghati",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 6,
+                wife: { name: "Pushpa Khatri", age: 52 },
+                children: [
+                    { name: "Rajiv Khatri", gender: "male", age: 28, married: true, status: "present" },
+                    { name: "Ritu Khatri", gender: "female", age: 26, married: true, marriedTo: "Verma Family", status: "married_out" },
+                    { name: "Ravi Khatri", gender: "male", age: 24, married: false, status: "present" },
+                    { name: "Rani Khatri", gender: "female", age: 22, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_005",
+            name: "Pradeep suresh chandra Khatri",
+            phone: "+91 8619110207",
+            location: "15, august ki gali, hathipol, Udaipur",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_006",
+            name: "Gurav suresh chandra Khatri",
+            phone: "+91 9352513852",
+            location: "15, Madhusudan vihar colony, badi Udaipur",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_007",
+            name: "Vijay kumar lokesh Khatri",
+            phone: "+91 7976519838",
+            location: " 26, hathipol ke ander,Udaipur",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+          {
+            id: "khatri_008",
+            name: "jitendra jeevanlal Khatri",
+            phone: "+91 9414161570",
+            location: " 1, Divy magari, Saheli marg, Udaipur",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+         {
+            id: "khatri_009",
+            name: "Dilip manalal Khatri",
+            phone: "+91 9929495197",
+            location: " New rajendra nagar, Gariyawas, Udaipur",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+         {
+            id: "khatri_0010",
+            name: "Upesh chandra Ramchandra Khatri",
+            phone: "+91 9460632907",
+            location: " Block 56-A, Hiran magri sec-14 Udaipur",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_0011",
+            name: "Pawan manalal Khatri",
+            phone: "+91 9057257342",
+            location: "6, new Rajendra nagar, Gariyavas, Udaipur ",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_0012",
+            name: "Vinay Prushuttam Khatri",
+            phone: "+91 9799397156",
+            location: "111, badi holi, delhi gate, Udaipur",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_0013",
+            name: "Rakesh Laxmilal Khatri",
+            phone: "+91 9413811950",
+            location: "I-70 block,Rajesthan hospital ke pass,sec-14,Udaipur",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+         {
+            id: "khatri_0014",
+            name: "Tarun Suresh Chandra Khatri",
+            phone: "+91 9571556600",
+            location: "114-115 D block, Hiran Magri, Sec-14,Udaipur",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_0015",
+            name: "Ganesh prabhulal Khatri",
+            phone: "+91 9887804674",
+            location: "111, Badi Holi, Bopalwadi, Udaipur",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_0016",
+            name: "Deepak Ramchandra Khatri",
+            phone: "+91 9414263810",
+            location: "74, rav ji ka aata, Udaipur",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "khatri_0017",
+            name: "Lokesh kesarilal Khatri",
+            phone: "+91 7891638525",
+            location: "Jay Rajasthan road, Hathipol, Udaipur",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+         {
+            id: "khatri_0018",
+            name: "Kanehiyalal babulal Khatri",
+            phone: "+91 7014669534",
+            location: "1/172, RHB colony, Guvardhan vilas, Udaipur",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+         {
+            id: "khatri_0019",
+            name: "Kanehiyalal babulal Khatri",
+            phone: "+91 7014669534",
+            location: "1/172, RHB colony, Guvardhan vilas, Udaipur",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 3,
+                wife: { name: "Sushma Khatri", age: 40 },
+                children: [
+                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                ]
+            }
+        },
+    ],
+    tandon: [
+        {
+            id: "tandon_001",
+            name: "Ashok Tandon",
+            phone: "+91 97111 22333",
+            location: "K-34, Sector 16, New Delhi",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 5,
+                wife: { name: "Shashi Tandon", age: 49 },
+                children: [
+                    { name: "Gaurav Tandon", gender: "male", age: 26, married: true, status: "present" },
+                    { name: "Garima Tandon", gender: "female", age: 24, married: true, marriedTo: "Sinha Family", status: "married_out" },
+                    { name: "Gautam Tandon", gender: "male", age: 21, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "tandon_002",
+            name: "Prakash Tandon",
+            phone: "+91 97222 33444",
+            location: "L-56, Sector 20, Noida",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 4,
+                wife: { name: "Kusum Tandon", age: 45 },
+                children: [
+                    { name: "Nitin Tandon", gender: "male", age: 23, married: false, status: "present" },
+                    { name: "Nisha Tandon", gender: "female", age: 20, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "tandon_003",
+            name: "Vijay Tandon",
+            phone: "+91 97333 44555",
+            location: "M-89, Sector 24, Gurgaon",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 5,
+                wife: { name: "Sarla Tandon", age: 48 },
+                children: [
+                    { name: "Ankur Tandon", gender: "male", age: 25, married: false, status: "present" },
+                    { name: "Ankita Tandon", gender: "female", age: 23, married: false, status: "present" },
+                    { name: "Anuj Tandon", gender: "male", age: 20, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "tandon_004",
+            name: "Rakesh Tandon",
+            phone: "+91 97444 55666",
+            location: "N-12, Sector 29, Faridabad",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 4,
+                wife: { name: "Manju Tandon", age: 44 },
+                children: [
+                    { name: "Tarun Tandon", gender: "male", age: 22, married: false, status: "present" },
+                    { name: "Tanya Tandon", gender: "female", age: 19, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "tandon_005",
+            name: "Sanjay Tandon",
+            phone: "+91 97555 66777",
+            location: "O-45, Sector 33, New Delhi",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 6,
+                wife: { name: "Aarti Tandon", age: 50 },
+                children: [
+                    { name: "Varun Tandon", gender: "male", age: 27, married: true, status: "present" },
+                    { name: "Varsha Tandon", gender: "female", age: 25, married: true, marriedTo: "Chopra Family", status: "married_out" },
+                    { name: "Vikas Tandon", gender: "male", age: 23, married: false, status: "present" },
+                    { name: "Vidya Tandon", gender: "female", age: 21, married: false, status: "present" }
+                ]
+            }
+        }
+    ],
+    bhalla: [
+    // ...existing code...
+// ...existing code...
+{
+    id: "bhalla_001",
+    name: "Radhey shayam Bhalla",
+    phone: "+91 9414167410",
+    location: "27, malviya colony, bohra gadheji",
+    role: "Mukhiya",
+    photo: null,
+    family: {
+        totalMembers: 12,
+        wife: { name: "Sushila Bhalla", age: 46 },
+        children: [
+            {
+                name: "Pahlad Bhalla",
+                gender: "male",
+                age: 24,
+                married: true,
+                status: "present",
+                spouse: { name: "Rashmi Bhalla", gender: "female", relation: "wife" },
+                children: [
+                    { name: "Saloni Bhalla", gender: "female" },
+                    { name: "Mohi Bhalla", gender: "female" }
+                ]
+            },
+            {
+                name: "Vikas Bhalla",
+                gender: "male",
+                age: 22,
+                married: true,
+                status: "present",
+                spouse: { name: "Jyoti Bhalla", gender: "female", relation: "wife" },
+                children: [
+                    { name: "Jahal Bhalla", gender: "female" },
+                    { name: "Bhuvan Bhalla", gender: "male" },
+                    { name: "Toshik Bhalla", gender: "male" }
+                ]
+            },
+            {
+                name: "Savita Bhalla",
+                gender: "female",
+                age: 22,
+                married: true,
+                marriedTo: "Chopra Family",
+                status: "married_out"
+            }
+        ]
     }
+},
+// ...existing code...
+// ...existing code...
+        
+        {
+            id: "bhalla_002",
+            name: "Kapish Bhalla",
+            phone: "+91 9829220457",
+            location: "52, ram dwara chowk dholi bawdi",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 5,
+                wife: { name: "Monika bhalla", age: 48 },
+                children: [
+                    { name: "Darsh Bhalla", gender: "male", age: 26, married: true, status: "present" },
+                    { name: "Darshita Bhalla", gender: "female", age: 24, married: false,  status: "present" }
+                ]
+            }
+        },
+        {
+            id: "bhalla_003",
+            name: "Satyanayan Bhalla",
+            phone: "+91 96333 44555",
+            location: "R-12, Sector 27, Gurgaon",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 9,
+                wife: { name: "Gita Bhalla", age: 52 },
+                children: [
+                    {
+                        name: "Abhishesk Bhalla",
+                        gender: "male",
+                        age: 28,
+                        married: true,
+                        status: "present",
+                        spouse: { name: "Vandana Bhalla", relation: "wife" },
+                        children: [
+                            { name: "Shuarya Bhalla", gender: "male" },
+                            { name: "Harsh Bhalla", gender: "male" }
+                        ]
+                    },
+                    { name: "Namrata Bhalla", gender: "female", age: 26, married: true, marriedTo: "Arora Family", status: "married_out" },
+                    { name: "Amrita Bhalla", gender: "female", age: 26, married: true, marriedTo: "Arora Family", status: "married_out" },
+                    { name: "Suman Bhalla", gender: "female", age: 26, married: true, marriedTo: "Arora Family", status: "married_out" }
+                ]
+            }
+        },
+        {
+            id: "bhalla_004",
+            name: "Late Giriraj Bhalla",
+            phone: "",
+            location: "",
+            role: "",
+            photo: null,
+            family: {
+                totalMembers: 7,
+                wife: { name: "Rekha Bhalla" },
+                children: [
+                    { name: "Toshi Bhalla", gender: "female", married: true, marriedTo: "Seghal Family", status: "married_out" },
+                    {
+                        name: "Tushar Bhalla",
+                        gender: "male",
+                        role: "Mukhiya",
+                        married: true,
+                        status: "present",
+                        spouse: { name: "Pooja Bhalla", age: 45, gender: "female"},
+                        children: [
+                            { name: "Vanika Bhalla", gender: "female", age: 23 },
+                            { name: "Kiyansh Bhalla", gender: "male", age: 21 }
+                        ]
+                    }
+                ]
+            }
+        }
+        
+        
+    ],
+    bajaj: [
+        {
+            id: "bajaj_001",
+            name: "Mohan Bajaj",
+            phone: "+91 95111 22333",
+            location: "U-78, Sector 12, New Delhi",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 5,
+                wife: { name: "Lata Bajaj", age: 47 },
+                children: [
+                    { name: "Aakash Bajaj", gender: "male", age: 25, married: false, status: "present" },
+                    { name: "Aanchal Bajaj", gender: "female", age: 23, married: true, marriedTo: "Jain Family", status: "married_out" },
+                    { name: "Aaditya Bajaj", gender: "male", age: 20, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "bajaj_002",
+            name: "Gopal Bajaj",
+            phone: "+91 95222 33444",
+            location: "V-23, Sector 26, Noida",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 4,
+                wife: { name: "Savitri Bajaj", age: 44 },
+                children: [
+                    { name: "Yash Bajaj", gender: "male", age: 22, married: false, status: "present" },
+                    { name: "Yashika Bajaj", gender: "female", age: 19, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "bajaj_003",
+            name: "Krishan Bajaj",
+            phone: "+91 95333 44555",
+            location: "W-45, Sector 30, Gurgaon",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 6,
+                wife: { name: "Radha Bajaj", age: 50 },
+                children: [
+                    { name: "Pankaj Bajaj", gender: "male", age: 28, married: true, status: "present" },
+                    { name: "Pallavi Bajaj", gender: "female", age: 26, married: true, marriedTo: "Khanna Family", status: "married_out" },
+                    { name: "Paras Bajaj", gender: "male", age: 24, married: false, status: "present" },
+                    { name: "Palak Bajaj", gender: "female", age: 22, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "bajaj_004",
+            name: "Shyam Bajaj",
+            phone: "+91 95444 55666",
+            location: "X-67, Sector 34, Faridabad",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 4,
+                wife: { name: "Kamini Bajaj", age: 43 },
+                children: [
+                    { name: "Divya Bajaj", gender: "female", age: 21, married: false, status: "present" },
+                    { name: "Dhruv Bajaj", gender: "male", age: 18, married: false, status: "present" }
+                ]
+            }
+        },
+        {
+            id: "bajaj_005",
+            name: "Brij Bajaj",
+            phone: "+91 95555 66777",
+            location: "Y-89, Sector 38, New Delhi",
+            role: "Mukhiya",
+            photo: null,
+            family: {
+                totalMembers: 5,
+                wife: { name: "Sunaina Bajaj", age: 46 },
+                children: [
+                    { name: "Lakshay Bajaj", gender: "male", age: 24, married: false, status: "present" },
+                    { name: "Lakshita Bajaj", gender: "female", age: 22, married: false, status: "present" },
+                    { name: "Lucky Bajaj", gender: "male", age: 19, married: false, status: "present" }
+                ]
+            }
+        }
+    ],
+       mehra: [
+  {
+    id: "mehra_001",
+    name: "Ramesh Mehra",          // ✅ REQUIRED
+    phone: "+91 90000 11111",      // ✅ REQUIRED
+    location: "Delhi",             // ✅ REQUIRED
+    role: "Mukhiya",               // ✅ REQUIRED
+    photo: null,
+
+    family: {
+      totalMembers: 6,             // ✅ REQUIRED
+
+      // ===== Pedigree extension =====
+      parents: {
+        father: { name: "Late Shyam Mehra", status: "late" },
+        mother: { name: "Kamla Mehra", status: "alive" }
+      },
+
+      spouse: {
+        name: "Suman Mehra",
+        gender: "female"
+      },
+
+      children: [
+        {
+          name: "Amit Mehra",
+          gender: "male",
+          spouse: {
+            name: "Neha Mehra",
+            relation: "daughter-in-law"
+          },
+          children: [
+            { name: "Rohit Mehra", gender: "male" },
+            { name: "Pooja Mehra", gender: "female" }
+          ]
+        },
+        {
+          name: "Pinki Mehra",
+          gender: "female",
+          marriedOut: true,
+          marriedTo: "Sharma Family"
+        }
+      ]
+    }
+  }
+]
+
+
+};
+
+// ============================================
+// EVENTS DATA - EASY TO UPDATE
+// Just modify this array to add/remove events
+// ============================================
+
+const EVENTS = [
+   
+    {
+        id: 1,
+        title: "Dhund",
+        date: "2026-03-3",
+        time: "10:00 AM",
+        venue: "Community Hall, Sector 15",
+        description: "Annual meeting to discuss society matters, elections, and future plans.",
+        status: "upcoming"
+    },
+    {
+        id: 2,
+        title: "Holi Milan Samaroh",
+        date: "2024-03-25",
+        time: "4:00 PM",
+        venue: "Central Park, Sector 18",
+        description: "Celebrate the festival of colors with the entire community. Snacks and refreshments will be provided.",
+        status: "completed"
+    },
+    {
+        id: 3,
+        title: "Youth Sports Day",
+        date: "2024-04-10",
+        time: "8:00 AM",
+        venue: "Sports Complex, Sector 22",
+        description: "Annual sports competition for youth members. Events include cricket, badminton, and athletics.",
+        status: "upcoming"
+    },
+    {
+        id: 4,
+        title: "Senior Citizens Felicitation",
+        date: "2024-04-20",
+        time: "11:00 AM",
+        venue: "Banquet Hall, Sector 15",
+        description: "Honoring our senior community members for their contributions and blessings.",
+        status: "upcoming"
+    },
+    {
+        id: 5,
+        title: "Cultural Evening",
+        date: "2024-05-05",
+        time: "6:00 PM",
+        venue: "Auditorium, Sector 25",
+        description: "An evening of music, dance, and cultural performances by community members.",
+        status: "upcoming"
+    }
+];
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+
+function getMemberById(memberId) {
+    for (const domain in FAMILY_MEMBERS) {
+        const member = FAMILY_MEMBERS[domain].find(m => m.id === memberId);
+        if (member) {
+            return { ...member, domain };
+        }
+    }
+    return null;
 }
 
-// Initialize homepage
-function initHomePage() {
-    if (!protectPage()) return;
-
-    initMobileMenu();
-
-    // Update stats
-    const totalFamilies = document.getElementById("totalFamilies");
-    const totalMembers = document.getElementById("totalMembers");
-    const totalDomains = document.getElementById("totalDomains");
-
-    if (totalFamilies) totalFamilies.textContent = getTotalFamiliesCount();
-    if (totalMembers) totalMembers.textContent = getTotalMembersCount();
-    if (totalDomains) totalDomains.textContent = FAMILY_DOMAINS.length;
-
-    // Update society info
-    const societyName = document.getElementById("societyName");
-    const societyDescription = document.getElementById("societyDescription");
-
-    if (societyName) societyName.textContent = SOCIETY_INFO.name;
-    if (societyDescription) societyDescription.textContent = SOCIETY_INFO.description;
+function getMembersByDomain(domainId) {
+    return FAMILY_MEMBERS[domainId] || [];
 }
-const savedLang = localStorage.getItem("language") || "en";
-setLanguage(savedLang);
 
-// Initialize directory page
-function initDirectoryPage() {
-    if (!protectPage()) return;
+function getDomainInfo(domainId) {
+    return FAMILY_DOMAINS.find(d => d.id === domainId);
+}
 
-    initMobileMenu();
-    renderDomains();
+function searchMembers(query) {
+    const results = [];
+    const lowerQuery = query.toLowerCase();
 
-    // Search functionality
-    const searchInput = document.getElementById("searchInput");
-    if (searchInput) {
-        searchInput.addEventListener("input", function() {
-            const query = this.value.trim();
-            if (query.length >= 2) {
-                renderSearchResults(query);
-            } else {
-                renderDomains();
+    for (const domain in FAMILY_MEMBERS) {
+        FAMILY_MEMBERS[domain].forEach(member => {
+            if (member.name.toLowerCase().includes(lowerQuery) ||
+                member.location.toLowerCase().includes(lowerQuery)) {
+                results.push({ ...member, domain });
             }
         });
     }
+
+    return results;
 }
 
-// Render family domains
-function renderDomains() {
-    const domainsContainer = document.getElementById("domainsContainer");
-    if (!domainsContainer) return;
-
-    domainsContainer.innerHTML = "";
-
-    FAMILY_DOMAINS.forEach(domain => {
-        const members = getMembersByDomain(domain.id);
-        const card = document.createElement("div");
-        card.className = "domain-card";
-        card.onclick = () => showDomainMembers(domain.id);
-
-        card.innerHTML = `
-            <div class="domain-icon" style="background: ${domain.color}">${domain.icon}</div>
-            <h3>${domain.name}</h3>
-            <p>${members.length} Families</p>
-        `;
-
-        domainsContainer.appendChild(card);
-    });
-}
-
-// Helper: return display name/role for directory card (promote Mukhiya if parent is Late)
-function getRepresentative(member) {
-    const f = member.family || {};
-    if (member.name && member.name.toLowerCase().startsWith('late') && Array.isArray(f.children)) {
-        const rep = f.children.find(c => c.role && c.role.toLowerCase() === 'mukhiya');
-        if (rep) {
-            return { name: rep.name, role: 'Mukhiya' };
-        }
-    }
-    return { name: member.name, role: member.role };
-}
-
-// Show members of a specific domain
-function showDomainMembers(domainId) {
-    const domainsContainer = document.getElementById("domainsContainer");
-    const membersContainer = document.getElementById("membersContainer");
-    const backButton = document.getElementById("backButton");
-    const domainTitle = document.getElementById("domainTitle");
-
-    if (!membersContainer) return;
-
-    const domain = getDomainInfo(domainId);
-    const members = getMembersByDomain(domainId);
-
-    if (domainsContainer) domainsContainer.style.display = "none";
-    if (backButton) backButton.style.display = "inline-flex";
-    if (domainTitle) domainTitle.textContent = `${domain.name} Family`;
-
-    membersContainer.style.display = "grid";
-    membersContainer.innerHTML = "";
-
-    members.forEach(member => {
-        const card = document.createElement("div");
-        card.className = "member-card";
-        card.onclick = () => window.location.href = `member.html?id=${member.id}`;
-
-        const rep = getRepresentative(member);
-        const displayName = rep.name;
-        const displayRole = rep.role || member.role;
-
-        card.innerHTML = `
-            <div class="member-avatar" style="background: ${domain.color}">
-                ${displayName.charAt(0)}
-            </div>
-            <div class="member-info">
-                <h4>${displayName}</h4>
-                <p class="member-role">${displayRole}</p>
-                <p class="member-location"><i class="fas fa-map-marker-alt"></i> ${member.location}</p>
-                <p class="member-phone"><i class="fas fa-phone"></i> ${member.phone}</p>
-                <p class="member-count"><i class="fas fa-users"></i> ${member.family.totalMembers} Members</p>
-            </div>
-        `;
-
-        membersContainer.appendChild(card);
-    });
-}
-
-// Render search results
-function renderSearchResults(query) {
-    const domainsContainer = document.getElementById("domainsContainer");
-    const membersContainer = document.getElementById("membersContainer");
-    const backButton = document.getElementById("backButton");
-    const domainTitle = document.getElementById("domainTitle");
-
-    const results = searchMembers(query);
-
-    if (domainsContainer) domainsContainer.style.display = "none";
-    if (backButton) backButton.style.display = "inline-flex";
-    if (domainTitle) domainTitle.textContent = `Search Results (${results.length})`;
-
-    membersContainer.style.display = "grid";
-    membersContainer.innerHTML = "";
-
-    if (results.length === 0) {
-        membersContainer.innerHTML = '<p class="no-results">No members found matching your search.</p>';
-        return;
-    }
-
-    results.forEach(member => {
-        const domain = getDomainInfo(member.domain);
-        const card = document.createElement("div");
-        card.className = "member-card";
-        card.onclick = () => window.location.href = `member.html?id=${member.id}`;
-
-        card.innerHTML = `
-            <div class="member-avatar" style="background: ${domain.color}">
-                ${member.name.charAt(0)}
-            </div>
-            <div class="member-info">
-                <h4>${member.name}</h4>
-                <p class="member-role">${member.role} - ${domain.name}</p>
-                <p class="member-location"><i class="fas fa-map-marker-alt"></i> ${member.location}</p>
-                <p class="member-phone"><i class="fas fa-phone"></i> ${member.phone}</p>
-                <p class="member-count"><i class="fas fa-users"></i> ${member.family.totalMembers} Members</p>
-            </div>
-        `;
-
-        membersContainer.appendChild(card);
-    });
-}
-
-// Go back to domains view
-function goBack() {
-    const domainsContainer = document.getElementById("domainsContainer");
-    const membersContainer = document.getElementById("membersContainer");
-    const backButton = document.getElementById("backButton");
-    const domainTitle = document.getElementById("domainTitle");
-    const searchInput = document.getElementById("searchInput");
-
-    if (domainsContainer) domainsContainer.style.display = "grid";
-    if (membersContainer) {
-        membersContainer.style.display = "none";
-        membersContainer.innerHTML = "";
-    }
-    if (backButton) backButton.style.display = "none";
-    if (domainTitle) domainTitle.textContent = "Family Domains";
-    if (searchInput) searchInput.value = "";
-}
-
-// Initialize member detail page
-function initMemberPage() {
-    if (!protectPage()) return;
-
-    initMobileMenu();
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const memberId = urlParams.get("id");
-
-    if (!memberId) {
-        window.location.href = "directory.html";
-        return;
-    }
-
-    const memberData = getMemberById(memberId);
-
-    if (!memberData) {
-        window.location.href = "directory.html";
-        return;
-    }
-
-    renderMemberDetails(memberData);
-
-    
-}
-
-
-
-// Render member details
-function renderMemberDetails(member) {
-    const domain = getDomainInfo(member.domain);
-
-    // Header
-    document.getElementById("memberName").textContent = member.name;
-    document.getElementById("memberDomain").textContent = `${domain.name} Family`;
-    document.getElementById("memberAvatar").textContent = member.name.charAt(0);
-    document.getElementById("memberAvatar").style.background = domain.color;
-
-    // Contact info
-    document.getElementById("memberPhone").textContent = member.phone;
-    document.getElementById("memberLocation").textContent = member.location;
-    document.getElementById("memberCount").textContent = `${member.family.totalMembers} Members`;
-
-    // Family members list
-    const familyList = document.getElementById("familyList");
-    familyList.innerHTML = "";
-
-    // Wife
-    if (member.family.wife) {
-        const wifeItem = document.createElement("div");
-        wifeItem.className = "family-member-item";
-        wifeItem.innerHTML = `
-            <div class="family-member-icon wife"><i class="fas fa-female"></i></div>
-            <div class="family-member-details">
-                <h4>${member.family.wife.name}</h4>
-                <p>Wife | Age: ${member.family.wife.age}</p>
-            </div>
-        `;
-        familyList.appendChild(wifeItem);
-    }
-
-    // Children
-    if (member.family.children && member.family.children.length > 0) {
-        member.family.children.forEach(child => {
-            const childItem = document.createElement("div");
-            childItem.className = "family-member-item";
-
-            let statusText = "";
-            if (child.status === "married_out") {
-                statusText = ` | Married to ${child.marriedTo}`;
-            } else if (child.married) {
-                statusText = " | Married";
-            }
-
-            const iconClass = child.gender === "male" ? "fa-male" : "fa-female";
-            const itemClass = child.status === "married_out" ? "married-out" : "";
-
-            childItem.innerHTML = `
-                <div class="family-member-icon ${child.gender} ${itemClass}"><i class="fas ${iconClass}"></i></div>
-                <div class="family-member-details ${itemClass}">
-                    <h4>${child.name}</h4>
-                    <p>${child.gender === "male" ? "Son" : "Daughter"} | Age: ${child.age}${statusText}</p>
-                </div>
-            `;
-            familyList.appendChild(childItem);
-
-            // Child's spouse (e.g., daughter-in-law)
-            if (child.spouse && child.spouse.name) {
-                const spouse = child.spouse;
-                const spouseItem = document.createElement("div");
-                spouseItem.className = "family-member-item spouse-item";
-                // determine gender class (fallback from relation text)
-                const spouseGenderClass = spouse.gender ? spouse.gender : (spouse.relation && spouse.relation.toLowerCase().includes('wife') ? 'female' : (spouse.relation && spouse.relation.toLowerCase().includes('husband') ? 'male' : ''));
-                const spouseIcon = spouseGenderClass === "male" ? "fa-male" : (spouseGenderClass === "female" ? "fa-female" : "fa-user");
-                const spouseRole = spouse.relation ? spouse.relation.replace(/-/g, ' ') : (child.gender === 'male' ? 'Daughter-in-law' : 'Son-in-law');
-                const spouseAgeText = spouse.age ? ` | Age: ${spouse.age}` : ' | Age: —';
-
-                spouseItem.innerHTML = `
-                    <div class="family-member-icon spouse ${spouseGenderClass}"><i class="fas ${spouseIcon}"></i></div>
-                    <div class="family-member-details">
-                        <h4>${spouse.name}</h4>
-                        <p>${spouseRole}${spouseAgeText}</p>
-                    </div>
-                `;
-                familyList.appendChild(spouseItem);
-            }
-
-            // Grandchildren (children of this child)
-            if (child.children && child.children.length > 0) {
-                child.children.forEach(gc => {
-                    const gcItem = document.createElement("div");
-                    gcItem.className = "family-member-item grandchild-item";
-                    const gcIconClass = gc.gender ? (gc.gender === "male" ? "fa-male" : "fa-female") : "fa-user";
-                    const gcGenderClass = gc.gender ? gc.gender : '';
-                    const gcAgeText = gc.age ? ` | Age: ${gc.age}` : ' | Age: —';
-                    gcItem.innerHTML = `
-                        <div class="family-member-icon grandchild ${gcGenderClass}"><i class="fas ${gcIconClass}"></i></div>
-                        <div class="family-member-details">
-                            <h4>${gc.name}</h4>
-                            <p>Grandchild${gcAgeText}</p>
-                        </div>
-                    `;
-                    familyList.appendChild(gcItem);
-                });
-            }
-
+function getTotalMembersCount() {
+    let count = 0;
+    for (const domain in FAMILY_MEMBERS) {
+        FAMILY_MEMBERS[domain].forEach(member => {
+            count += member.family.totalMembers;
         });
     }
-        // 👉 Render Family Tree / Pedigree
-    const familyTree = document.getElementById("familyTree");
-    if (familyTree) {
-        familyTree.innerHTML = renderPedigree(member);
-        // adjust connector line to align exactly between first and last child
-        setTimeout(() => adjustPedigreeConnectors(familyTree), 0);
-    }
-
+    return count;
 }
 
-// Render family tree
-function renderFamilyTree(member) {
-    const treeContainer = document.getElementById("familyTree");
-    if (!treeContainer) return;
-
-    const domain = getDomainInfo(member.domain);
-
-    let treeHTML = `
-        <div class="tree">
-            <div class="tree-node root">
-                <div class="node-content" style="border-color: ${domain.color}">
-                    <div class="node-icon" style="background: ${domain.color}"><i class="fas fa-user"></i></div>
-                    <span>${member.name}</span>
-                    <small>Mukhiya</small>
-                </div>
-            </div>
-    `;
-
-    if (member.family.wife || (member.family.children && member.family.children.length > 0)) {
-        treeHTML += `<div class="tree-connector"></div><div class="tree-children">`;
-
-        // Wife
-        if (member.family.wife) {
-            treeHTML += `
-                <div class="tree-node spouse">
-                    <div class="node-content spouse-node">
-                        <div class="node-icon spouse-icon"><i class="fas fa-female"></i></div>
-                        <span>${member.family.wife.name}</span>
-                        <small>Wife</small>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Children
-        if (member.family.children && member.family.children.length > 0) {
-            member.family.children.forEach(child => {
-                const isMarriedOut = child.status === "married_out";
-                const nodeClass = isMarriedOut ? "married-out-node" : "";
-                const iconClass = child.gender === "male" ? "fa-male" : "fa-female";
-                const genderClass = child.gender === "male" ? "male-node" : "female-node";
-
-                treeHTML += `
-                    <div class="tree-node child">
-                        <div class="node-content ${nodeClass} ${genderClass}">
-                            <div class="node-icon"><i class="fas ${iconClass}"></i></div>
-                            <span>${child.name}</span>
-                            <small>${child.gender === "male" ? "Son" : "Daughter"}${isMarriedOut ? ` → ${child.marriedTo}` : ""}</small>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        treeHTML += `</div>`;
+function getTotalFamiliesCount() {
+    let count = 0;
+    for (const domain in FAMILY_MEMBERS) {
+        count += FAMILY_MEMBERS[domain].length;
     }
-
-    treeHTML += `</div>`;
-    treeContainer.innerHTML = treeHTML;
+    return count;
 }
 
-// Initialize events page
-function initEventsPage() {
-    if (!protectPage()) return;
-
-    initMobileMenu();
-    renderEvents();
-}
-
-// Render events
-function renderEvents() {
-    const eventsContainer = document.getElementById("eventsContainer");
-    if (!eventsContainer) return;
-
-    eventsContainer.innerHTML = "";
-
-    // Sort events by date
-    const sortedEvents = [...EVENTS].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    sortedEvents.forEach(event => {
-        const eventDate = new Date(event.date);
-        const today = new Date();
-        const isPast = eventDate < today;
-
-        const card = document.createElement("div");
-        card.className = `event-card ${isPast ? "past-event" : ""}`;
-
-        const dateFormatted = eventDate.toLocaleDateString("en-IN", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        });
-
-        card.innerHTML = `
-            <div class="event-date-badge">
-                <span class="day">${eventDate.getDate()}</span>
-                <span class="month">${eventDate.toLocaleString("en-IN", { month: "short" })}</span>
-            </div>
-            <div class="event-details">
-                <h3>${event.title}</h3>
-                <p class="event-datetime"><i class="fas fa-calendar-alt"></i> ${dateFormatted}</p>
-                <p class="event-time"><i class="fas fa-clock"></i> ${event.time}</p>
-                <p class="event-venue"><i class="fas fa-map-marker-alt"></i> ${event.venue}</p>
-                <p class="event-description">${event.description}</p>
-                ${isPast ? '<span class="event-status past">Event Completed</span>' : '<span class="event-status upcoming">Upcoming</span>'}
-            </div>
-        `;
-
-        eventsContainer.appendChild(card);
-    });
-}
-
-// Call to action for phone
-function callMember(phone) {
-    window.location.href = `tel:${phone}`;
-}
-
-// Open location in maps
-function openLocation(location) {
-    const encodedLocation = encodeURIComponent(location);
-    window.open(`https://www.google.com/maps/search/?api=1&query=${encodedLocation}`, "_blank");
-}
-
-// Adjust horizontal children line to span exactly between first and last visible child branch
-function adjustPedigreeConnectors(root) {
-    try {
-        const tree = (root instanceof HTMLElement) ? root : document.getElementById('familyTree');
-        if (!tree) return;
-        const section = tree.querySelector('.children-section');
-        const line = tree.querySelector('.children-line');
-        const row = tree.querySelector('.children-row');
-        if (!section || !line || !row) return;
-
-        const branches = Array.from(row.querySelectorAll('.child-branch'));
-        if (branches.length === 0) {
-            line.style.display = 'none';
-            return;
-        }
-
-        // compute centers of first and last branch relative to .children-section
-        const sectionRect = section.getBoundingClientRect();
-        const first = branches[0].getBoundingClientRect();
-        const last = branches[branches.length - 1].getBoundingClientRect();
-
-        const firstCenter = (first.left + first.right) / 2 - sectionRect.left;
-        const lastCenter = (last.left + last.right) / 2 - sectionRect.left;
-
-        const left = Math.min(firstCenter, lastCenter);
-        const width = Math.abs(lastCenter - firstCenter);
-
-        // add small padding so line doesn't touch box edges
-        const pad = 12;
-        line.style.display = '';
-        line.style.left = (left - pad) + 'px';
-        line.style.width = (width + pad * 2) + 'px';
-        line.style.transform = 'none';
-
-    } catch (err) {
-        console.error('adjustPedigreeConnectors error', err);
-    }
-}
-
-// keep connectors aligned on resize
-window.addEventListener('resize', () => {
-    const tree = document.getElementById('familyTree');
-    if (tree) adjustPedigreeConnectors(tree);
-});
-// ...existing code...
-// ...existing code...
-// ...existing code...
-function renderPedigree(member) {
-    if (!member || !member.family) {
-        return `<div class="pedigree-error">Family data unavailable.</div>`;
-    }
-    const f = member.family || {};
-
-    function personBox(person, role) {
-        if (!person) return "";
-        const genderClass = person.gender === "female" ? "female" : "male";
-        const lateText = person.status === "late" ? " (Late)" : "";
-        return `<div class="person-box ${genderClass}">
-            ${person.name}${lateText}${role ? `<br><small>${role}</small>` : ""}
-        </div>`;
-    }
-
-    function spouseRole(child, spouse) {
-        if (!spouse) return "";
-        if (child.gender === "male") return "Daughter-in-law";
-        return spouse.gender === "male" ? "Husband" : "Spouse";
-    }
-
-    // Normalize children: attach any child-record that is actually a spouse (e.g. daughter-in-law)
-    const rawChildren = Array.isArray(f.children) ? f.children.slice() : [];
-    const childrenByName = {};
-    rawChildren.forEach((c, i) => { if (c && c.name) childrenByName[c.name.trim().toLowerCase()] = i; });
-
-    // clone so we can mark attachments
-    const children = rawChildren.map(c => Object.assign({}, c));
-
-    // Attach spouse-records to their husband when possible (marriedTo points to husband name)
-    children.forEach(c => {
-        if (!c || !c.marriedTo) return;
-        const husbandIndex = childrenByName[(c.marriedTo || "").trim().toLowerCase()];
-        if (husbandIndex !== undefined) {
-            const husband = children[husbandIndex];
-            if (husband && husband.gender === "male") {
-                husband.spouse = husband.spouse || c;
-                c._attached = true;
-            }
-        }
-    });
-
-    // Also if some child has role/status indicating it's a 'daughter-in-law' and marriedTo absent,
-    // try to match by searching male child whose spouse name matches this name (rare case)
-    children.forEach(c => {
-        if (!c || c._attached) return;
-        if ((c.relation === "daughter-in-law" || c.role === "daughter-in-law" || c.status === "daughter_in_law") && c.name) {
-            // try to find a male child who doesn't have spouse and likely husband by last name or missing spouse
-            for (let h of children) {
-                if (h && h.gender === "male" && !h.spouse && h.name && h.name.split(" ")[1] === c.name.split(" ")[1]) {
-                    h.spouse = c;
-                    c._attached = true;
-                    break;
-                }
-            }
-        }
-    });
-
-    // Final children preserve original order, only non-attached (main children) remain
-    const finalChildren = children.filter(c => !c._attached);
-
-    // Parents (mother first)
-    const parentsHtml = (f.parents?.mother || f.parents?.father) ? `
-        <div class="tree-level parents-level">
-            ${personBox(f.parents?.mother, "Mother")}
-            ${personBox(f.parents?.father, "Father")}
-        </div>
-        <div class="connector parents-to-couple"><div class="connector-vertical"></div></div>
-    ` : "";
-
-    // If the current member is 'Late' and one of the children is marked as Mukhiya,
-    // promote that child to be shown as the main Mukhiya (root) and display the late member's
-    // name as a separate label above/outside the couple.
-    let lateCoupleHtml = "";
-    let mainMukhiya = member;
-    let mainWife = f.wife;
-    let extraCoupleHtml = "";
-
-    if (member.name && member.name.toLowerCase().startsWith('late') && finalChildren.length) {
-        const repIndex = finalChildren.findIndex(c => c.role && c.role.toLowerCase() === 'mukhiya');
-        if (repIndex !== -1) {
-            const rep = finalChildren.splice(repIndex, 1)[0]; // remove from children list
-            mainMukhiya = rep;
-            mainWife = rep.spouse || null; // use promoted spouse for main couple
-
-            const nameWithoutLate = member.name.replace(/^late\s+/i, '');
-            // show the late member as a couple (with their wife) above the promoted mukhiya
-            lateCoupleHtml = `
-                <div class="tree-level late-couple">
-                    ${personBox(member, "Late")}
-                    ${f.wife ? personBox(f.wife, "Wife") : ""}
-                </div>
-            `;
-        }
-    }
-
-    // Couple row (Mukhiya + wife). We may append extra family members (e.g., a daughter) to the couple row
-    let coupleHtml = `
-        ${lateCoupleHtml}
-        <div class="couple-wrap">
-            <div class="tree-level couple-level">
-                ${personBox(mainMukhiya, "Mukhiya")}
-                ${mainWife ? personBox(mainWife, "Wife") : ""}
-                ${extraCoupleHtml}
-            </div>
-            <div class="connector couple-to-children"><div class="connector-vertical short"></div></div>
-        </div>
-    `;
-
-    // Children (each child is a branch; spouse and grandchildren are under that branch)
-    let childrenRow = "";
-
-    // If we promoted a child to mainMukhiya, include its children first so they appear under the main couple
-    let childrenToRender = finalChildren;
-    if (mainMukhiya !== member) {
-        const promotedChildren = (mainMukhiya.children && mainMukhiya.children.length) ? mainMukhiya.children.map(c => Object.assign({}, c)) : [];
-        childrenToRender = promotedChildren.concat(finalChildren);
-    }
-
-    // Promote specific children to the couple-row (e.g., Thosi/Toshi) so they appear next to the Mukhiya and spouse
-    const promoteNames = [ 'toshi bhalla'];
-    let coupleExtras = [];
-    childrenToRender = childrenToRender.filter(child => {
-        if (!child || !child.name) return true;
-        const n = child.name.trim().toLowerCase();
-        // Flexible match: exact names or contains 'tos' (covers Toshi/Thosi/Tosh variants)
-        if (promoteNames.includes(n) || n.includes('tos')) {
-            coupleExtras.push(child);
-            return false; // remove from children list
-        }
-        return true;
-    });
-    if (coupleExtras.length) {
-        extraCoupleHtml = coupleExtras.map(c => personBox(c, c.gender === 'male' ? 'Son' : 'Daughter')).join('');
-    }
-
-    // Rebuild coupleHtml now that extraCoupleHtml may be populated (fixes missing promoted members like Thoshi)
-    coupleHtml = `
-        ${lateCoupleHtml}
-        <div class="couple-wrap">
-            <div class="tree-level couple-level">
-                ${personBox(mainMukhiya, "Mukhiya")}
-                ${mainWife ? personBox(mainWife, "Wife") : ""}
-                ${extraCoupleHtml}
-            </div>
-            <div class="connector couple-to-children"><div class="connector-vertical short"></div></div>
-        </div>
-    `;
-    if (childrenToRender.length) {
-        const branches = childrenToRender.map(child => {
-            const spouseHtml = child.spouse ? personBox(child.spouse, spouseRole(child, child.spouse)) : "";
-            const grandchildrenHtml = Array.isArray(child.children) && child.children.length
-                ? `<div class="grandchildren-row" data-parent="${child.name}">${child.children.map(gc => personBox(gc, "Grandchild")).join("")}</div>`
-                : "";
-            return `
-                <div class="child-branch">
-                    <div class="child-connector"><div class="connector-vertical tiny"></div></div>
-                    <div class="child-node">
-                        ${personBox(child, child.gender === "male" ? "Son" : "Daughter")}
-                        ${spouseHtml}
-                    </div>
-                    ${grandchildrenHtml}
-                </div>
-            `;
-        }).join("");
-        childrenRow = `
-            <div class="children-section">
-                <div class="children-line"></div>
-                <div class="children-row">
-                    ${branches}
-                </div>
-            </div>
-        `;
-    }
-
-    return `
-        <div class="pedigree-root">
-            ${parentsHtml}
-            ${coupleHtml}
-            ${childrenRow}
-        </div>
-    `;
-}
-// ...existing code...
-function personBox(person, role) {
-    if (!person) return "";
-    const genderClass = person.gender === "female" ? "female" : "male";
-    const lateText = person.status === "late" ? " (Late)" : "";
-    const marriedOutClass = (person.status === "married_out" || person.marriedOut || person.married === true || person.marriedTo) ? "married-out" : "";
-    return `<div class="person-box ${genderClass} ${marriedOutClass}">
-        ${person.name}${lateText}${role ? `<br><small>${role}</small>` : ""}
-    </div>`;
-}
-// ...existing code...
-// ...existing code...
