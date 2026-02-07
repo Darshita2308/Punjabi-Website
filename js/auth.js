@@ -5,7 +5,7 @@
 
 const AUTH_CREDENTIALS = {
     username: "user",
-    password: "Punjabi@123"
+    password: "123456789"
 };
 
 const AUTH_KEY = "punjabi_sabha_auth";
