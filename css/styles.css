@@ -7,6 +7,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 /* CSS Variables - Professional Color Palette */
+/* Hide Google Translate default UI */
+
 :root {
     --primary-color: #1a365d;
     --primary-light: #2c5282;
@@ -1314,6 +1316,9 @@ img {
 /* ============================================
    FAMILY TREE STYLES
    ============================================ */
+.pedigree-container {
+  overflow-x: auto;
+}
 
 .tree-container {
     overflow-x: auto;
@@ -1431,6 +1436,11 @@ img {
     opacity: 0.6;
     border-style: dashed;
 }
+.family-member.late {
+  opacity: 0.5;
+  background: #f2f2f2;
+  border: 1px dashed #888;
+}
 
 .married-out-node small {
     color: var(--accent-dark);
@@ -1486,15 +1496,6 @@ img {
     gap: 28px;
 }
 
-.event-card {
-    background: var(--card-background);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow);
-    display: flex;
-    overflow: hidden;
-    transition: var(--transition);
-    border: 1px solid var(--border-color);
-}
 
 .event-card:hover {
     transform: translateX(8px);
@@ -2003,3 +2004,504 @@ img {
     visibility: visible;
     bottom: calc(100% + 8px);
 }
+.pedigree-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tree-level {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 15px 0;
+}
+
+.late-label {
+  font-style: italic;
+  color: #6b7280; /* slate gray */
+  font-weight: 600;
+  margin-bottom: -6px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Late couple styling (small person boxes above promoted Mukhiya) */
+.late-couple { display:flex; gap:18px; justify-content:center; }
+.late-couple .person-box { min-width: 120px; padding: 8px 10px; opacity: 0.98; }
+.late-couple .person-box small { color: #6b7280; font-weight:600; }
+
+
+.person-box {
+  padding: 10px 16px;
+  border: 2px solid #3b82f6;
+  border-radius: 10px;
+  background: #fff;
+  min-width: 120px;
+  text-align: center;
+  position: relative;
+  .person-box {
+  outline: 2px dashed red;
+}
+
+}
+
+.person-box.male {
+  border-color: #3b82f6;
+}
+
+.person-box.female {
+  border-color: #ec4899;
+}
+/* ===== PEDIGREE CORE ===== */
+.pedigree-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.tree-level {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ===== PERSON BOX ===== */
+.person-box {
+  min-width: 140px;
+  padding: 10px 14px;
+  text-align: center;
+  border: 2px solid #2563eb;
+  border-radius: 10px;
+  background: #fff;
+  font-weight: 600;
+}
+
+.person-box small {
+  display: block;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.person-box.male {
+  border-color: #2563eb;
+}
+
+.person-box.female {
+  border-color: #ec4899;
+}
+
+/* ===== PARENTS ===== */
+.parents-level {
+  gap: 40px;
+}
+
+/* ===== COUPLE ===== */
+.couple-level {
+  gap: 40px;
+}
+
+/* ===== SONS ===== */
+.sons-level {
+  flex-direction: column;
+  align-items: center;
+}
+
+.son-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.son-couple {
+  display: flex;
+  gap: 15px;
+}
+
+/* ===== GRANDCHILDREN ===== */
+.grandchildren-list {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+/* ===== DAUGHTERS ===== */
+.daughters-level {
+  gap: 15px;
+}
+
+/* ===== TITLES ===== */
+.sons-title,
+.daughters-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.sons-title {
+  color: #2563eb;
+}
+/* Center everything cleanly */
+.parents-level,
+.couple-level,
+.sons-level,
+.daughters-level {
+  align-items: center;
+}
+
+/* Better spacing */
+.tree-level {
+  margin: 20px 0;
+}
+
+/* Children section centered */
+.children-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.children-section .children-list {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+/* CONNECTORS */
+.connector.vertical {
+  width: 2px;
+  height: 30px;
+  background: #999;
+  margin: 0 auto;
+}
+
+/* Horizontal connector for couples */
+/* ================= ROOT ================= */
+.pedigree-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+}
+
+/* ================= LEVEL ================= */
+.tree-level {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+/* ================= PERSON BOX ================= */
+.person-box {
+  min-width: 160px;
+  padding: 12px 18px;
+  border: 2px solid #2563eb;
+  border-radius: 12px;
+  background: #fff;
+  text-align: center;
+  font-weight: 600;
+}
+
+.person-box small {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.person-box.female {
+  border-color: #ec4899;
+}
+
+/* ================= PARENTS ================= */
+.parents-level::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 2px;
+  background: #9ca3af;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* ...existing code... */
+/* Pedigree connectors & layout */
+.couple-wrap { display:flex; flex-direction:column; align-items:center; position:relative; }
+.connector { display:flex; align-items:center; justify-content:center; }
+.connector-vertical { width:2px; height:28px; background:#9ca3af; border-radius:2px; }
+.connector-vertical.short { height:18px; }
+.connector-vertical.tiny { height:12px; }
+.children-section { position:relative; width:100%; display:flex; flex-direction:column; align-items:center; margin-top:6px; }
+.children-line { position:absolute; top:8px; left:50%; transform:translateX(-50%); width:60%; height:2px; background:#9ca3af; border-radius:2px; z-index:0; }
+.children-group { width:100%; margin-top:30px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+.children-row { display:flex; gap:34px; justify-content:center; align-items:flex-start; flex-wrap:wrap; z-index:1; padding: 20px 10px 10px; }
+.child-branch { display:flex; flex-direction:column; align-items:center; gap:8px; min-width:150px; position:relative; }
+.child-node { display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; }
+.grandchildren-row { display:flex; gap:12px; margin-top:8px; justify-content:center; flex-wrap:wrap; }
+.parents-to-couple { display:flex; justify-content:center; }
+.group-title { font-weight:700; margin-bottom:6px; color:#374151; }
+@media (max-width: 768px) { .children-row { gap:18px; } }
+/* minor aesthetics */
+.person-box { box-shadow: 0 5px 18px rgba(0,0,0,0.06); }
+/* Tighten pedigree spacing & connectors (override previous rules) */
+.pedigree-root { gap: 12px; padding: 20px 0; }
+.tree-level { margin-bottom: 12px; gap: 18px; }
+.person-box { padding: 8px 12px; min-width: 120px; }
+
+.connector-vertical { height: 18px; }         /* parent → couple */
+.connector-vertical.short { height: 10px; }   /* couple → children */
+.connector-vertical.tiny { height: 6px; }     /* child verticals */
+
+.parents-level::after { width: 90px; height: 2px; bottom: -12px; } /* shorten parent horizontal */
+.children-section { margin-top: 8px; }
+.children-line { top: 6px; width: 45%; height: 2px; }             /* shorter horizontal children line */
+
+.children-row { margin-top: 12px; padding: 8px 6px 6px; gap: 20px; }
+.child-branch { min-width: 120px; gap: 6px; }
+.grandchildren-row { margin-top: 6px; gap: 10px; }
+
+.couple-wrap .connector { margin-top: 6px; } /* bring couple connector closer */
+/* Fix connector alignment & tighten spacing for pedigree */
+.pedigree-root { gap: 8px; padding: 12px 0; }
+.tree-level { margin-bottom: 8px; gap: 14px; }
+.person-box { padding: 8px 10px; min-width: 110px; }
+
+/* make the couple -> children connector short and aligned */
+.couple-wrap .connector-vertical.short { height: 12px; }
+
+/* center horizontal children line slightly closer */
+.children-section { margin-top: 6px; position: relative; }
+.children-line { top: 12px; left: 50%; transform: translateX(-50%); width: 48%; height: 2px; background: #9ca3af; }
+
+/* each child branch draws its own vertical to the central children line */
+.child-branch { position: relative; padding-top: 6px; min-width: 110px; }
+.child-branch::before {
+  content: "";
+  position: absolute;
+  top: -12px;           /* matches .couple-wrap .connector-vertical.short height */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 12px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 2;
+}
+
+/* grandchild connector from parent node down */
+.child-node { position: relative; }
+.grandchildren-row::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 8px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+/* reduce gaps inside children lists */
+.children-row { margin-top: 8px; gap: 18px; padding: 6px 8px; }
+.grandchildren-row { margin-top: 8px; gap: 8px; }
+
+/* small responsive tweaks */
+@media (max-width: 768px) {
+  .children-line { width: 80%; }
+  .person-box { min-width: 100px; padding: 7px 10px; }
+}
+/* Pedigree connector alignment tweaks */
+.couple-wrap .connector-vertical.short { height: 10px; }
+.children-line { top: 10px; width: 40%; height: 2px; }
+.children-row { margin-top: 6px; gap: 18px; padding: 6px 8px; display:flex; justify-content:center; flex-wrap:wrap; }
+.child-branch { position: relative; padding-top: 6px; min-width: 120px; display:flex; flex-direction:column; align-items:center; gap:6px; }
+.child-branch::before {
+  content: "";
+  position: absolute;
+  top: -10px;              /* small vertical from the children-line */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 10px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 2;
+}
+.child-node { display:flex; gap:10px; align-items:center; justify-content:center; }
+.grandchildren-row { display:flex; gap:8px; margin-top:6px; }
+.grandchildren-row::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 6px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 1;
+}
+/* bring couple -> children connector a bit closer */
+.couple-wrap { margin-bottom: 6px; }
+/* ...existing code... */
+
+/* Ensure child node and spouse render as a horizontal couple and grandchildren centered */
+.child-node { display:flex; gap:10px; align-items:center; justify-content:center; position:relative; }
+.child-node .person-box { margin: 0; }
+.child-branch { display:flex; flex-direction:column; align-items:center; padding-top:6px; position:relative; min-width:120px; }
+
+/* children line shorter and centered */
+.children-line { top: 10px; width: 48%; }
+
+/* vertical connector from children line to each child */
+.child-branch::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 10px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 2;
+}
+
+/* grandchildren group centered under the child-node */
+.grandchildren-row {
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+  justify-content:center;
+  position:relative;
+  padding-top:6px;
+}
+/* small vertical from parent down to grandchildren row */
+.grandchildren-row::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 8px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+/* tighten spacing */
+.couple-wrap { margin-bottom: 6px; }
+.connector-vertical.short { height: 10px; }
+.connector-vertical.tiny { height: 8px; }
+.children-row { gap: 16px; padding: 6px 6px; }
+
+/* responsive adjustments */
+@media (max-width: 768px) {
+  .children-line { width: 80%; }
+  .child-branch { min-width: 100px; }
+}
+/* Fix: stable children horizontal line and aligned vertical connectors */
+.children-section .children-line { display: none; } /* hide old absolute line */
+
+.children-row {
+  position: relative;
+  padding-top: 18px;   /* space for the horizontal connector */
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* single horizontal line that spans the row and children centers */
+.children-row::before {
+  content: "";
+  position: absolute;
+  top: 8px;           /* vertical position of the horizontal line */
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 0;
+}
+
+/* vertical line from the horizontal line down to the child box */
+.child-branch::before {
+  content: "";
+  position: absolute;
+  top: -10px;         /* reach from horizontal line down */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 12px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 2;
+}
+
+/* make couple → children vertical meet the horizontal line */
+.couple-wrap { margin-bottom: 6px; }
+.couple-wrap .connector-vertical.short {
+  height: 18px;      /* tuned to meet children_row::before */
+  background: #9ca3af;
+}
+
+/* grandchildren connector aligned to parent's center */
+.grandchildren-row {
+  position: relative;
+  margin-top: 8px;
+  display:flex;
+  gap:8px;
+  justify-content:center;
+}
+.grandchildren-row::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 8px;
+  background: #9ca3af;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+/* small spacing / visual tweaks */
+.child-node { z-index: 3; }
+@media (max-width: 768px) {
+  .children-row::before { left: 6px; right: 6px; }
+  .children-row { padding-top: 14px; gap: 10px; }
+}
+/* keep all children on one stable row and prevent wrap */
+.children-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;  /* children aligned to top so grandchildren don't push others down */
+  flex-wrap: nowrap;        /* prevents wrapping so Savita won't drop below */
+  overflow-x: auto;
+  padding: 8px 6px 10px;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
+}
+
+/* small horizontal scrollbar styling */
+.children-row::-webkit-scrollbar { height: 6px; }
+.children-row::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.06); border-radius: 6px; }
+
+/* reduce person-box min width so more fit on one line */
+.person-box { min-width: 100px; padding: 8px 10px; }
+
+/* faded look for daughters married-out (or marked married) */
+.person-box.married-out {
+  opacity: 0.55;
+  filter: grayscale(18%);
+}
+
+/* ensure grandchildren connector doesn't shift siblings */
+.grandchildren-row { margin-top: 8px; display:flex; gap:8px; justify-content:center; position:relative; }
