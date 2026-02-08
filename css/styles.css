@@ -2700,3 +2700,14 @@ img {
 .pedigree-root {
     min-width: 900px;   /* keeps structure intact */
 }
+.person-box {
+    min-width: 130px;      /* smaller width */
+    padding: 10px 12px;    /* reduce spacing */
+    font-size: 13px;       /* slightly smaller text */
+    border-radius: 10px;
+}
+
+.person-box small {
+    font-size: 11px;
+}
+
