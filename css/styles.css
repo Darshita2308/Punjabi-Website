@@ -2682,31 +2682,21 @@ img {
 
 /* ensure grandchildren connector doesn't shift siblings */
 .grandchildren-row { margin-top: 8px; display:flex; gap:8px; justify-content:center; position:relative; }
-.children-row {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;   /* VERY IMPORTANT */
+.pedigree-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
 }
-.person-box {
-  min-width: 140px;
-  max-width: 90vw;
+
+.pedigree-scroll::-webkit-scrollbar {
+    height: 8px;
 }
-@media (max-width: 600px) {
 
-  .tree-level {
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .person-box {
-    font-size: 14px;
-    padding: 10px 12px;
-    min-width: 120px;
-  }
-
-  .children-row {
-    gap: 12px;
-  }
-
+.pedigree-scroll::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+.pedigree-root {
+    min-width: 900px;   /* keeps structure intact */
 }
