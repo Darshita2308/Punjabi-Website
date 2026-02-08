@@ -2711,3 +2711,26 @@ img {
     font-size: 11px;
 }
 
+.member-details-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.member-table {
+    flex: 1;
+}
+
+.pedigree-section {
+    flex: 1;
+}
+.member-details-container {
+    display: flex;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .member-details-container {
+        flex-direction: column;
+    }
+}
