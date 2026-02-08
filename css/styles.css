@@ -1860,6 +1860,63 @@ img {
         font-size: 0.88rem;
     }
 
+    /* Pedigree responsive */
+    .tree-container {
+        padding: 20px 15px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pedigree-root {
+        gap: 8px;
+        padding: 15px 0;
+    }
+
+    .tree-level {
+        gap: 12px;
+        margin-bottom: 8px;
+    }
+
+    .person-box {
+        min-width: 95px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    .person-box small {
+        font-size: 11px;
+    }
+
+    .children-row {
+        gap: 12px;
+        padding: 6px 4px;
+    }
+
+    .child-branch {
+        min-width: 95px;
+    }
+
+    .connector-vertical {
+        height: 12px;
+    }
+
+    .connector-vertical.short {
+        height: 8px;
+    }
+
+    .connector-vertical.tiny {
+        height: 4px;
+    }
+
+    .children-line {
+        width: 35%;
+    }
+
+    .parents-level::after {
+        width: 70px;
+        bottom: -8px;
+    }
+
     /* Events */
     .events-header {
         padding: 40px 20px;
@@ -1944,6 +2001,126 @@ img {
 
     .domains-container {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Pedigree/Family Tree for mobile */
+    .tree-container {
+        padding: 15px 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pedigree-root {
+        gap: 6px;
+        padding: 10px 0;
+    }
+
+    .tree-level {
+        gap: 10px;
+        margin-bottom: 6px;
+    }
+
+    .person-box {
+        min-width: 80px;
+        padding: 5px 8px;
+        font-size: 0.78rem;
+        border-radius: 8px;
+    }
+
+    .person-box small {
+        font-size: 10px;
+        margin-top: 2px;
+    }
+
+    .node-content {
+        min-width: 90px;
+        padding: 10px 15px;
+    }
+
+    .node-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .node-content span {
+        font-size: 0.78rem;
+    }
+
+    .node-content small {
+        font-size: 0.7rem;
+    }
+
+    .tree-children {
+        gap: 12px;
+    }
+
+    .tree-connector {
+        height: 25px;
+    }
+
+    .children-row {
+        gap: 8px;
+        padding: 4px 2px;
+        margin-top: 8px;
+    }
+
+    .child-branch {
+        min-width: 80px;
+        padding-top: 4px;
+        gap: 4px;
+    }
+
+    .child-node {
+        gap: 8px;
+    }
+
+    .grandchildren-row {
+        gap: 6px;
+        margin-top: 4px;
+    }
+
+    .connector-vertical {
+        height: 10px;
+    }
+
+    .connector-vertical.short {
+        height: 6px;
+    }
+
+    .connector-vertical.tiny {
+        height: 3px;
+    }
+
+    .children-line {
+        top: 8px;
+        width: 30%;
+        height: 2px;
+    }
+
+    .child-branch::before {
+        top: -8px;
+        height: 8px;
+    }
+
+    .parents-level::after {
+        width: 60px;
+        height: 2px;
+        bottom: -6px;
+    }
+
+    .couple-wrap {
+        margin-bottom: 4px;
+    }
+
+    .children-section {
+        margin-top: 6px;
+    }
+
+    /* Ensure horizontal scrolling works smoothly */
+    .tree {
+        padding: 15px 10px;
     }
 }
 
