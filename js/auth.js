@@ -8,8 +8,8 @@ const AUTH_CREDENTIALS = {
     password: "123456789"
 };
 
-const AUTH_KEY = "punjabi_sabha_auth";
-const AUTH_TIMESTAMP = "punjabi_sabha_auth_time";
+const AUTH_KEY = "punjabi_samaj_auth";
+const AUTH_TIMESTAMP = "punjabi_samaj_auth_time";
 const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 // Check if user is authenticated
