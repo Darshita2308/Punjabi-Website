@@ -3,14 +3,14 @@
 // ============================================
 
 const SOCIETY_INFO = {
-    name: "Punjabi Khatri Sabha",
+    name: "Punjabi Khatri Samaj",
     established: "1985",
     founder: "Shri Ram Lal Kapoor Ji",
     description: "A vibrant community of Punjabi Khatri families united by culture, tradition, and values. Our society has been serving the community for decades, organizing cultural events, supporting families, and preserving our rich heritage.",
     mission: "To unite Punjabi Khatri families, preserve our cultural heritage, and support community members through various social and cultural initiatives.",
     address: "Community Hall, Sector 15, New Delhi - 110001",
     phone: "+91 98765 43210",
-    email: "info@punjabikhatrisabha.org"
+    email: "info@punjabikhatrisamaj.org"
 };
 
 // ============================================
@@ -122,17 +122,28 @@ const FAMILY_MEMBERS = {
     khatri: [
         {
             id: "khatri_001",
-            name: "Jitendra Khatri",
+            name: "Late Prithvi Raj Khatri",
             phone: "+91 9694466909 / +91 7014321857",
             location: "8, jai shree colony, dholkot, bohra ganeshji udaipur",
-            role: "Mukhiya",
+            role: "",
             photo: null,
             family: {
                 totalMembers: 4,
-                wife: { name: "Monika Khatri", age: 46 },
+                wife: { name: "Saroj Khatri", age: 46, gender: "female" },
                 children: [
-                    { name: "Devash Khatri", gender: "male", age: 23, married: false, status: "present" },
-                    { name: "Deepika Khatri", gender: "female", age: 21, married: false, status: "present" }
+                    
+                    {
+                        name: "Jitendra Khatri",
+                        gender: "male",
+                        role: "Mukhiya",
+                        married: true,
+                        status: "present",
+                        spouse: { name: "Monika Khatri", age: 45, gender: "female"},
+                        children: [
+
+                            { name: "Divansh Khatri", gender: "male", age: 21 }
+                        ]
+                    }
                 ]
             }
         },
@@ -195,9 +206,10 @@ const FAMILY_MEMBERS = {
             photo: null,
             family: {
                 totalMembers: 3,
-                wife: { name: "Sushma Khatri", age: 40 },
+                wife: { name: "Neha Khatri", age: 40, gender: "female"},
                 children: [
-                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                    { name: "Hiti Khatri", gender: "female", age: 24, married: false, status: "present" },
+                    { name: "Aadhi Khatri", gender: "male", age: 15, married: false, status: "present" }
                 ]
             }
         },
@@ -225,9 +237,9 @@ const FAMILY_MEMBERS = {
             photo: null,
             family: {
                 totalMembers: 3,
-                wife: { name: "Sushma Khatri", age: 40 },
+                wife: { name: "Vandana Khatri", age: 40, gender: "female" },
                 children: [
-                    { name: "Aarav Khatri", gender: "male", age: 15, married: false, status: "present" }
+                    { name: "Chayan Khatri", gender: "male", age: 15, married: false, status: "present" }
                 ]
             }
         },
@@ -488,12 +500,10 @@ const FAMILY_MEMBERS = {
             photo: null,
             family: {
                 totalMembers: 6,
-                wife: { name: "Aarti Tandon", age: 50 },
+                wife: { name: "geeta Tandon", age: 50 },
                 children: [
-                    { name: "Varun Tandon", gender: "male", age: 27, married: true, status: "present" },
-                    { name: "Varsha Tandon", gender: "female", age: 25, married: true, marriedTo: "Chopra Family", status: "married_out" },
-                    { name: "Vikas Tandon", gender: "male", age: 23, married: false, status: "present" },
-                    { name: "Vidya Tandon", gender: "female", age: 21, married: false, status: "present" }
+                    { name: "kulpit Tandon", gender: "male", age: 27, married: true, status: "present" },
+                    { name: "ruchi Tandon", gender: "female", age: 25, married: true, marriedTo: "Chopra Family", status: "married_out" }
                 ]
             }
         }
@@ -533,8 +543,8 @@ const FAMILY_MEMBERS = {
                 spouse: { name: "Jyoti Bhalla", gender: "female", relation: "wife" },
                 children: [
                     { name: "Jahal Bhalla", gender: "female" },
-                    { name: "Bhuvan Bhalla", gender: "male" },
-                    { name: "Toshik Bhalla", gender: "male" }
+                    { name: "Bhuman Bhalla", gender: "male" },
+                    { name: "Toshit Bhalla", gender: "male" }
                 ]
             },
             {
@@ -576,7 +586,7 @@ const FAMILY_MEMBERS = {
             photo: null,
             family: {
                 totalMembers: 9,
-                wife: { name: "Gita Bhalla", age: 52 },
+                wife: { name: "Gita Bhalla", age: 52,gender: "female"  },
                 children: [
                     {
                         name: "Abhishesk Bhalla",
@@ -584,7 +594,7 @@ const FAMILY_MEMBERS = {
                         age: 28,
                         married: true,
                         status: "present",
-                        spouse: { name: "Vandana Bhalla", relation: "wife" },
+                        spouse: { name: "Vandana Bhalla", relation: "wife", gender: "female" },
                         children: [
                             { name: "Shuarya Bhalla", gender: "male" },
                             { name: "Harsh Bhalla", gender: "male" }
@@ -599,13 +609,13 @@ const FAMILY_MEMBERS = {
         {
             id: "bhalla_004",
             name: "Late Giriraj Bhalla",
-            phone: "",
-            location: "",
+            phone: "9929336210",
+            location: "J-21 sector 14, Udaipur",
             role: "",
             photo: null,
             family: {
                 totalMembers: 7,
-                wife: { name: "Rekha Bhalla" },
+                wife: { name: "Rekha Bhalla",gender: "female" },
                 children: [
                     { name: "Toshi Bhalla", gender: "female", married: true, marriedTo: "Seghal Family", status: "married_out" },
                     {
@@ -854,11 +864,43 @@ function searchMembers(query) {
     return results;
 }
 
+function countActiveFamilyMembers(member) {
+    let count = 0;
+    const f = member.family;
+
+    // Count member if not late
+    if (!member.name.toLowerCase().startsWith('late')) count++;
+
+    // Count wife if exists and not late
+    if (f.wife && f.wife.status !== 'late') count++;
+
+    // Count children who are not late and not married_out
+    if (f.children) {
+        f.children.forEach(child => {
+            if (child.status !== 'late' && child.status !== 'married_out') {
+                count++;
+
+                // Count spouse if exists and not late
+                if (child.spouse && child.spouse.status !== 'late') count++;
+
+                // Count grandchildren who are not late
+                if (child.children) {
+                    child.children.forEach(gc => {
+                        if (gc.status !== 'late') count++;
+                    });
+                }
+            }
+        });
+    }
+
+    return count;
+}
+
 function getTotalMembersCount() {
     let count = 0;
     for (const domain in FAMILY_MEMBERS) {
         FAMILY_MEMBERS[domain].forEach(member => {
-            count += member.family.totalMembers;
+            count += countActiveFamilyMembers(member);
         });
     }
     return count;
@@ -871,4 +913,3 @@ function getTotalFamiliesCount() {
     }
     return count;
 }
-
