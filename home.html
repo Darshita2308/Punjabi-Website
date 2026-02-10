@@ -3,19 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Punjabi Khatri Sabha - A vibrant community united by culture, tradition, and values">
-    <title>Home - Punjabi Khatri Sabha</title>
+    <meta name="description" content="Punjabi Khatri Samaj - A vibrant community united by culture, tradition, and values">
+    <title>Home - Punjabi Khatri Samaj</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🙏</text></svg>">
+<meta name="google" content="notranslate">
+
+
 </head>
 <body>
     <!-- Navigation -->
+     
+<div id="google_translate_element" style="position: absolute; top: 10px; left: 10px; z-index: 9999;"></div>
+
     <nav class="navbar">
+        <div class="language-switcher">
+    <button onclick="setLang('en')" class="lang-btn active">English</button>
+    <button onclick="setLang('hi')" class="lang-btn">हिन्दी</button>
+</div>
+
         <div class="nav-container">
+
+
             <a href="home.html" class="nav-brand">
                 <div class="nav-logo">PKS</div>
-                <h1>Punjabi Khatri Sabha</h1>
+                <h1>Punjabi Khatri Samaj</h1>
             </a>
 
             <div class="menu-toggle" id="menuToggle">
@@ -36,8 +49,14 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1 id="societyName"><span>Punjabi</span> Khatri Sabha</h1>
-            <p id="societyDescription">A vibrant community of Punjabi Khatri families united by culture, tradition, and values. Together we preserve our heritage and build lasting bonds across generations.</p>
+            <h1 id="societyName" data-key="societyName">
+    <span>Punjabi</span> Khatri Samaj
+</h1>
+
+           <p id="societyDescription" data-key="societyDescription">
+A vibrant community of Punjabi Khatri families united by culture, tradition, and values.
+</p>
+
 
             <div class="hero-stats">
                 <div class="stat-item">
@@ -59,7 +78,8 @@
     <!-- About Section -->
     <section class="section">
         <div class="section-title">
-            <h2>About Our Society</h2>
+            <h2 data-key="aboutTitle">About Our Society</h2>
+
             <p>Learn more about our rich heritage and community values</p>
         </div>
 
@@ -111,7 +131,7 @@
                 <h3>Contact Us</h3>
                 <p>Community Hall, Sector 15, New Delhi - 110001<br>
                 Phone: +91 98765 43210<br>
-                Email: info@punjabikhatrisabha.org</p>
+                Email: info@punjabikhatrisamaj.org</p>
             </div>
         </div>
     </section>
@@ -145,7 +165,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2026 Punjabi Khatri Sabha. All rights reserved.</p>
+            <p>&copy; 2026 Punjabi Khatri Samaj. All rights reserved.</p>
             <div class="footer-links">
                 <a href="home.html">Home</a>
                 <a href="directory.html">Directory</a>
@@ -159,6 +179,24 @@
     <script src="js/app.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", initHomePage);
+        
+        
     </script>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    {
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi',
+      autoDisplay: false
+    },
+    'google_translate_element'
+  );
+}
+</script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
 </body>
 </html>
