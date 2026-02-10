@@ -148,7 +148,7 @@ function showDomainMembers(domainId) {
                 <p class="member-role">${displayRole}</p>
                 <p class="member-location"><i class="fas fa-map-marker-alt"></i> ${member.location}</p>
                 <p class="member-phone"><i class="fas fa-phone"></i> ${member.phone}</p>
-                <p class="member-count"><i class="fas fa-users"></i> ${member.family.totalMembers} Members</p>
+                <p class="member-count"><i class="fas fa-users"></i> ${countActiveFamilyMembers(member)} Members</p>
             </div>
         `;
 
@@ -259,7 +259,7 @@ function renderMemberDetails(member) {
     // Contact info
     document.getElementById("memberPhone").textContent = member.phone;
     document.getElementById("memberLocation").textContent = member.location;
-    document.getElementById("memberCount").textContent = `${member.family.totalMembers} Members`;
+    document.getElementById("memberCount").textContent = `${countActiveFamilyMembers(member)} Members`;
 
     // Family members list
     const familyList = document.getElementById("familyList");
